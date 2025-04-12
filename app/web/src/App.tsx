@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import ChatWindow from './chat/Window';
 
 const App = () => {
 
@@ -20,6 +21,7 @@ const App = () => {
   return (
     <div className="App">
       <h1>Search Mate!</h1>
+      <ChatWindow />
     </div>
   );
 }

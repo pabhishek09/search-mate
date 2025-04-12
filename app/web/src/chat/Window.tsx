@@ -1,9 +1,26 @@
 import React, { useEffect, useState } from "react"
 
-const Chat = () => {
+const ChatWindow = () => {
 
     const [ input, setInput ] = useState<string>("");
     const [ message, setMessages] = useState<string[]>([]);
+
+    const getLLMResponse = async (input: string) => {
+        const response = await fetch('/api/chat', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ msg: input }),
+        });
+        if (!response.ok) {
+            console.error("Error fetching LLM response");
+            return;
+        }
+        const data = await response.json();
+        console.log("LLM response: ", data);
+        return data?.response?.message;
+    }
 
     const getResponse = async () => {
         const userInput = input;
@@ -12,6 +29,13 @@ const Chat = () => {
             return;
         }
         console.log(`Get response from LLM for the input: ${userInput}`);
+        const response = await getLLMResponse(userInput);
+        const content = response?.content;
+        console.log("Response: ", content);
+        setMessages((prev) => {
+            return [ ...prev, content ]
+        });
+        setInput("");
     }
 
     useEffect(() => {
@@ -35,4 +59,4 @@ const Chat = () => {
     )
 }
 
-export default Chat;
+export default ChatWindow;

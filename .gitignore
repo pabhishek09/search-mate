@@ -2,3 +2,4 @@
 node_modules
 app/web/build
 .env
+*.log
