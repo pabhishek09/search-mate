@@ -1,7 +1,7 @@
 import App from 'express';
 import path from 'path';
 import config from './appConfig';
-import health, { chat } from './server/index';
+import health, { chatStream, getInstalledModels } from './server/index';
 import bodyParser from 'body-parser';
 import winston from 'winston';
 
@@ -11,17 +11,9 @@ app.use(bodyParser.json());
 const logger = winston.createLogger({
     level: 'info',
     format: winston.format.json(),
-    defaultMeta: { service: 'user-service' },
+    defaultMeta: { service: 'search-mate' },
     transports: [
-      //
-      // - Write all logs with importance level of `error` or higher to `error.log`
-      //   (i.e., error, fatal, but not other levels)
-      //
       new winston.transports.File({ filename: 'error.log', level: 'error' }),
-      //
-      // - Write all logs with importance level of `info` or higher to `combined.log`
-      //   (i.e., fatal, error, warn, and info, but not trace)
-      //
       new winston.transports.File({ filename: 'combined.log' }),
     ],
   });
@@ -51,7 +43,7 @@ app.listen(PORT, () => {
 
 // use server routes
 app.get('/api/health', health);
-
-app.post('/api/chat', chat);
+app.get('/api/models', getInstalledModels);
+app.post('/api/chat', chatStream);
 
 export default app;

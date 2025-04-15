@@ -9,3 +9,8 @@ Run `npm build` and `npm start`
 ## Hack Mode
 
 Run `npm run dev`
+
+## Add ollama as docker container
+
+https://ollama.com/blog/ollama-is-now-available-as-an-official-docker-image
+

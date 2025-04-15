@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import ChatWindow from './chat/Window';
+import Chat from './chat/Chat';
 
 const App = () => {
 
@@ -19,9 +19,8 @@ const App = () => {
     fetchData();
   }, []);
   return (
-    <div className="App">
-      <h1>Search Mate!</h1>
-      <ChatWindow />
+    <div className="h-screen md:px-64 md:py-4">
+      <Chat />
     </div>
   );
 }
